@@ -143,11 +143,19 @@ def get_4Swing_option():
     Swing_3 = get_3swing_option()
     last_col = Swing_3[0]
     Swing.append(last_col)
-    indicator.append([1]*len(last_col))
     Swing.append(Swing_3[1])
-    indicator.append([1] * len(Swing_3[1]))
     Swing.append(Swing_3[2])
-    indicator.append([1]*len(Swing_3[2]))
+    payoff = get_underlying_tree()
+    for i in range(0, 3):
+        indicator_line = []
+        col = payoff[i]
+        swing333 = Swing_3[i]
+        for j in range(len(col)):
+            if swing333[j] > 0:
+                indicator_line.append(1)
+            else:
+                indicator_line.append(0)
+        indicator.append(indicator_line)
     last_col = Swing_3[2]
     case1tree = get_case1_4th()
     for i in range(3, len(Swing_3)):
